@@ -132,6 +132,8 @@ namespace BoDi
         /// </remarks>
         T Resolve<T>(string name);
 
+		IEnumerable<T> ResolveAll<T>() where T : class;
+
         /// <summary>
         /// Resolves an implementation object for an interface or type.
         /// </summary>
@@ -505,6 +507,15 @@ namespace BoDi
         {
             return Resolve(typeToResolve, new ResolutionList(), name);
         }
+
+		public IEnumerable<T> ResolveAll<T>() where T : class
+		{
+			var list = new List<T>();
+			list.Add(1 as T);
+			list.Add(1 as T);
+			list.Add(1 as T);
+			return list;
+		}
 
         private object Resolve(Type typeToResolve, ResolutionList resolutionPath, string name)
         {
