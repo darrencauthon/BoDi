@@ -508,13 +508,13 @@ namespace BoDi
             return Resolve(typeToResolve, new ResolutionList(), name);
         }
 
-		public IEnumerable<T> ResolveAll<T>() where T : class
-		{
-			return registrations
-				       .Where (x => x.Key.Type == typeof(T))
-				       .Select (x => Resolve (x.Key.Type, x.Key.Name) as T);
-		}
-		
+        public IEnumerable<T> ResolveAll<T>() where T : class
+        {
+            return registrations
+                       .Where(x => x.Key.Type == typeof(T))
+                       .Select(x => Resolve (x.Key.Type, x.Key.Name) as T);
+        }
+
         private object Resolve(Type typeToResolve, ResolutionList resolutionPath, string name)
         {
             AssertNotDisposed();
