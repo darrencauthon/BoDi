@@ -510,13 +510,11 @@ namespace BoDi
 
 		public IEnumerable<T> ResolveAll<T>() where T : class
 		{
-			var list = new List<T>();
-			list.Add(1 as T);
-			list.Add(1 as T);
-			list.Add(1 as T);
-			return list;
+			return registrations
+				       .Where (x => x.Key.Type == typeof(T))
+				       .Select (x => Resolve (x.Key.Type, x.Key.Name) as T);
 		}
-
+		
         private object Resolve(Type typeToResolve, ResolutionList resolutionPath, string name)
         {
             AssertNotDisposed();

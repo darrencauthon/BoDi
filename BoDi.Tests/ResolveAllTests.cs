@@ -33,5 +33,21 @@ namespace BoDi.Tests
 			Assert.AreEqual(3, results.Count());
 		}
 
+		[Test]
+		public void ShouldResolveTheRightTypes()
+		{
+			// given
+			var container = new ObjectContainer();
+			container.RegisterTypeAs<ImFancy, IFancy>("fancy");
+			container.RegisterTypeAs<ImFancier, IFancy>("fancier");
+
+			// when
+			var results = container.ResolveAll<IFancy>();
+
+			// then
+			Assert.IsTrue(results.Contains(container.Resolve<IFancy>("fancy")));
+			Assert.IsTrue(results.Contains(container.Resolve<IFancy>("fancier")));
+		}
+
 	}
 }
