@@ -133,6 +133,13 @@ namespace BoDi
         T Resolve<T>(string name);
 
         /// <summary>
+        /// Resolves all implementations of an interface or type.
+        /// </summary>
+        /// <typeparam name="T">The interface or type.</typeparam>
+        /// <returns>An object implementing <typeparamref name="T"/>.</returns>
+        IEnumerable<T> ResolveAll<T>() where T : class;
+
+        /// <summary>
         /// Resolves an implementation object for an interface or type.
         /// </summary>
         /// <param name="typeToResolve">The interface or type.</param>
@@ -504,6 +511,13 @@ namespace BoDi
         public object Resolve(Type typeToResolve, string name = null)
         {
             return Resolve(typeToResolve, new ResolutionList(), name);
+        }
+
+        public IEnumerable<T> ResolveAll<T>() where T : class
+        {
+            return registrations
+                       .Where(x => x.Key.Type == typeof(T))
+                       .Select(x => Resolve (x.Key.Type, x.Key.Name) as T);
         }
 
         private object Resolve(Type typeToResolve, ResolutionList resolutionPath, string name)
