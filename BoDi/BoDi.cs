@@ -132,6 +132,11 @@ namespace BoDi
         /// </remarks>
         T Resolve<T>(string name);
 
+        /// <summary>
+        /// Resolves all implementations of an interface or type.
+        /// </summary>
+        /// <typeparam name="T">The interface or type.</typeparam>
+        /// <returns>An object implementing <typeparamref name="T"/>.</returns>
         IEnumerable<T> ResolveAll<T>() where T : class;
 
         /// <summary>
